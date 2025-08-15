@@ -1,3 +1,17 @@
+/* Tailwind base, components, utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Optional custom styles for smooth transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button {
+  transition: background-color 0.2s, color 0.2s;
+}

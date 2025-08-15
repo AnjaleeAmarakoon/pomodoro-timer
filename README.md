@@ -1,7 +1,3 @@
-Here’s a clean **README.md** content for your Pomodoro Timer project:
-
----
-
 # ⏳ Pomodoro Timer
 
 A simple and modern Pomodoro Timer built with **React** and **Tailwind CSS**, featuring dark mode, sound alerts, and customizable session controls.
@@ -24,6 +20,11 @@ A simple and modern Pomodoro Timer built with **React** and **Tailwind CSS**, fe
 * **Styling**: Tailwind CSS
 * **Icons**: react-icons
 * **Sound**: HTML5 Audio API
+
+---
+
+## 🌐 Live Demo
+🔗 **[View on Vercel](https://pomodoro-timer-anjalee-amarakoons-projects.vercel.app/)**
 
 ---
 

@@ -1,12 +1,78 @@
-# React + Vite
+Here’s a clean **README.md** content for your Pomodoro Timer project:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+# ⏳ Pomodoro Timer
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A simple and modern Pomodoro Timer built with **React** and **Tailwind CSS**, featuring dark mode, sound alerts, and customizable session controls.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Features
+
+* **Pomodoro Technique**: Stay focused with a 25/5-minute timer cycle.
+* **Dark / Light Mode**: Toggle between themes with one click.
+* **Sound Alerts**: Play a beep sound when the timer ends (toggle on/off).
+* **Responsive Design**: Works perfectly on desktop and mobile.
+* **Custom Controls**: Start, pause, reset, and adjust session/break times.
+
+---
+
+## 🖥️ Tech Stack
+
+* **Frontend**: React + Vite
+* **Styling**: Tailwind CSS
+* **Icons**: react-icons
+* **Sound**: HTML5 Audio API
+
+---
+
+## 📷 Preview
+
+![Pomodoro Timer Screenshot](src/assets/Screenshot.png)
+
+---
+
+## ⚙️ Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/pomodoro-timer.git
+
+# Navigate to the project
+cd pomodoro-timer
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
+```
+
+---
+
+## 🎯 Usage
+
+1. **Start**: Click the play button to start the timer.
+2. **Pause**: Pause the session anytime.
+3. **Reset**: Reset to the default session/break time.
+4. **Dark Mode**: Click the theme toggle icon to switch between dark and light mode.
+5. **Sound**: Toggle the sound icon to enable or mute alerts.
+
+---
+
+## 📂 Project Structure
+
+```
+pomodoro-timer/
+│── public/
+│   └── beep.mp3
+│── src/
+│   ├── components/
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+│── package.json
+└── README.md
+```
+

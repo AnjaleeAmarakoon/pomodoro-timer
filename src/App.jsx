@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import CircularProgress from "./components/CircularProgress";
 import TimerDisplay from "./components/TimerDisplay";
 import Controls from "./components/Controls";
@@ -27,7 +27,11 @@ export default function App() {
 
   // Dark mode
   const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("darkMode") === "true" || false
+    () => {
+      const stored = localStorage.getItem("darkMode");
+      if (stored === null) return true; // Default to dark if not set
+      return stored === "true";
+    }
   );
 
   // Sound
@@ -64,7 +68,7 @@ export default function App() {
   }, [workMinutes, breakMinutes, longBreakMinutes, isWorkSession, sessionCount]);
 
   // Timer tick
-  const toggleTimer = () => {
+  const toggleTimer = useCallback(() => {
     if (isRunning) {
       clearInterval(timerRef.current);
     } else {
@@ -73,9 +77,7 @@ export default function App() {
           if (prev <= 0) {
             if (soundOn) beepSound.current.play();
             clearInterval(timerRef.current);
-
             if (isWorkSession) setSessionCount((prev) => prev + 1);
-
             setIsWorkSession(!isWorkSession);
             return !isWorkSession
               ? workMinutes * 60
@@ -87,10 +89,10 @@ export default function App() {
         });
       }, 1000);
     }
-    setIsRunning(!isRunning);
-  };
+    setIsRunning((prev) => !prev);
+  }, [isRunning, soundOn, isWorkSession, workMinutes, breakMinutes, longBreakMinutes, sessionCount]);
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     clearInterval(timerRef.current);
     setIsRunning(false);
     setTimeLeft(
@@ -100,7 +102,7 @@ export default function App() {
         ? longBreakMinutes * 60
         : breakMinutes * 60
     );
-  };
+  }, [isWorkSession, workMinutes, breakMinutes, longBreakMinutes, sessionCount]);
 
   // Progress calculation
   const progress =
@@ -125,10 +127,10 @@ export default function App() {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [isRunning, isWorkSession, timeLeft]);
+  }, [isRunning, isWorkSession, timeLeft, toggleTimer, resetTimer]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white relative transition-colors duration-300">
+  <div className="min-h-screen flex flex-col items-center justify-center cute-bg dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white relative transition-colors duration-300">
       
       {/* Top-Right Button Container */}
       <div className="absolute top-4 right-4 flex flex-col gap-4">
@@ -149,7 +151,10 @@ export default function App() {
         </button>
       </div>
 
-      <h1 className="text-3xl font-bold mb-6">Pomodoro Timer</h1>
+      <h1 className="text-5xl font-extrabold mb-8 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg flex items-center gap-3 header-attractive">
+        <span role="img" aria-label="hourglass">⏳</span>
+        Pomodoro Timer
+      </h1>
 
       {/* Circular Progress with Timer */}
       <div className="relative">
@@ -182,8 +187,10 @@ export default function App() {
       <Settings
         workMinutes={workMinutes}
         breakMinutes={breakMinutes}
+        longBreakMinutes={longBreakMinutes}
         setWorkMinutes={setWorkMinutes}
         setBreakMinutes={setBreakMinutes}
+        setLongBreakMinutes={setLongBreakMinutes}
       />
     </div>
   );

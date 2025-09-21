@@ -1,0 +1,45 @@
+.cute-bg {
+	background: linear-gradient(135deg, #fceabb 0%, #f8b6d2 100%);
+}
+.header-attractive {
+	letter-spacing: 0.04em;
+	text-shadow: 0 4px 24px rgba(255, 100, 100, 0.18), 0 1.5px 0 #fff;
+	animation: header-pop 1s cubic-bezier(.4,2,.6,1) 1;
+}
+
+@keyframes header-pop {
+	0% {
+		opacity: 0;
+		transform: translateY(-30px) scale(0.9);
+	}
+	60% {
+		opacity: 1;
+		transform: translateY(8px) scale(1.08);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+.fade-timer {
+	opacity: 0.3;
+	transition: opacity 0.2s;
+}
+@keyframes timer-pop {
+	0% {
+		opacity: 0.5;
+		transform: scale(0.9);
+	}
+	60% {
+		opacity: 1;
+		transform: scale(1.08);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.animate-timer {
+	animation: timer-pop 0.5s;
+}

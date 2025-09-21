@@ -1,8 +1,10 @@
 export default function Settings({
   workMinutes,
   breakMinutes,
+  longBreakMinutes,
   setWorkMinutes,
   setBreakMinutes,
+  setLongBreakMinutes,
 }) {
   return (
     <div className="flex gap-8 justify-center mt-8">
@@ -29,6 +31,19 @@ export default function Settings({
           onChange={(e) => setBreakMinutes(Number(e.target.value))}
           className="w-20 px-3 py-2 text-black rounded-lg border border-gray-300 focus-visible:outline-2 focus-visible:outline-blue-400 focus-visible:ring-2 focus-visible:ring-blue-300 transition-all duration-150 shadow-sm"
           aria-label="Break minutes"
+        />
+        <span className="text-sm text-gray-500">min</span>
+      </div>
+      <div className="flex items-center gap-3">
+        <label htmlFor="long-break-minutes" className="font-medium">Long Break:</label>
+        <input
+          id="long-break-minutes"
+          type="number"
+          min="1"
+          value={longBreakMinutes}
+          onChange={(e) => setLongBreakMinutes(Number(e.target.value))}
+          className="w-24 px-3 py-2 text-black rounded-lg border border-gray-300 focus-visible:outline-2 focus-visible:outline-blue-400 focus-visible:ring-2 focus-visible:ring-blue-300 transition-all duration-150 shadow-sm"
+          aria-label="Long break minutes"
         />
         <span className="text-sm text-gray-500">min</span>
       </div>

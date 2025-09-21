@@ -184,8 +184,10 @@ export default function App() {
       <Settings
         workMinutes={workMinutes}
         breakMinutes={breakMinutes}
+        longBreakMinutes={longBreakMinutes}
         setWorkMinutes={setWorkMinutes}
         setBreakMinutes={setBreakMinutes}
+        setLongBreakMinutes={setLongBreakMinutes}
       />
     </div>
   );

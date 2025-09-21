@@ -151,7 +151,10 @@ export default function App() {
         </button>
       </div>
 
-      <h1 className="text-3xl font-bold mb-6">Pomodoro Timer</h1>
+      <h1 className="text-5xl font-extrabold mb-8 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg flex items-center gap-3 header-attractive">
+        <span role="img" aria-label="hourglass">⏳</span>
+        Pomodoro Timer
+      </h1>
 
       {/* Circular Progress with Timer */}
       <div className="relative">

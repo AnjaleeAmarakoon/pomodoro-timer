@@ -1,3 +1,6 @@
+.cute-bg {
+	background: linear-gradient(135deg, #fceabb 0%, #f8b6d2 100%);
+}
 .header-attractive {
 	letter-spacing: 0.04em;
 	text-shadow: 0 4px 24px rgba(255, 100, 100, 0.18), 0 1.5px 0 #fff;

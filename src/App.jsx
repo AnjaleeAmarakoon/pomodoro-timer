@@ -130,7 +130,7 @@ export default function App() {
   }, [isRunning, isWorkSession, timeLeft, toggleTimer, resetTimer]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white relative transition-colors duration-300">
+  <div className="min-h-screen flex flex-col items-center justify-center cute-bg dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white relative transition-colors duration-300">
       
       {/* Top-Right Button Container */}
       <div className="absolute top-4 right-4 flex flex-col gap-4">

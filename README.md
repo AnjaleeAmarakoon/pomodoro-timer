@@ -8,6 +8,11 @@ A beautifully designed Pomodoro Timer application built with React, Vite, and Ta
 
 ---
 
+## 🌐 Live Demo
+🔗 **[View on Vercel](https://pomodoro-timer-anjalee-amarakoons-projects.vercel.app/)**
+
+---
+
 ## ✨ Features
 
 ### Core Functionality
@@ -210,4 +215,3 @@ This project is open source and available under the [MIT License](LICENSE).
   <p>Made with ❤️ and ⏳</p>
   <p>Happy Focusing! 🎯</p>
 </div>
-

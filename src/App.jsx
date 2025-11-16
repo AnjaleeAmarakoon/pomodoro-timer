@@ -185,12 +185,12 @@ export default function App() {
           />
           <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
             <TimerDisplay isWorkSession={isWorkSession} timeLeft={timeLeft} />
-            <p className="mt-2 text-sm font-medium">
+            <p className="mt-3 text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 tracking-wide">
               {isWorkSession
-                ? `Work Session (${sessionCount % 4 + 1}/4)`
+                ? `Session ${sessionCount % 4 + 1} of 4`
                 : sessionCount % 4 === 0
-                ? "Long Break"
-                : "Break"}
+                ? "🎉 Long Break"
+                : "✨ Short Break"}
             </p>
           </div>
         </div>

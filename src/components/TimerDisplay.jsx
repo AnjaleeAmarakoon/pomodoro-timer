@@ -30,12 +30,12 @@ export default function TimerDisplay({ isWorkSession, timeLeft }) {
 
   return (
     <div className="text-center">
-      <h2 className="text-xl font-medium mb-2 transition-all duration-500" key={isWorkSession ? "work" : "break"}>
-        {isWorkSession ? "Work Session" : "Break Time"}
+      <h2 className="text-lg sm:text-xl font-semibold mb-3 transition-all duration-500 text-gray-700 dark:text-gray-200" key={isWorkSession ? "work" : "break"}>
+        {isWorkSession ? "🎯 Work Session" : "☕ Break Time"}
       </h2>
       <p
         ref={timerRef}
-        className={`text-6xl font-mono transition-all duration-500${fade ? " fade-timer" : ""}`}
+        className={`text-5xl sm:text-6xl font-bold font-mono transition-all duration-500 tracking-tight${fade ? " fade-timer" : ""}`}
       >
         {formatTime(timeLeft)}
       </p>

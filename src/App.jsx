@@ -160,8 +160,23 @@ export default function App() {
 
       {/* Timer Card with Glass Morphism */}
       <div className="relative bg-white/30 dark:bg-gray-800/30 backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-md w-full">
+        {/* Session Progress Dots */}
+        <div className="flex justify-center gap-2 mb-6">
+          {[0, 1, 2, 3].map((index) => (
+            <div
+              key={index}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index < (sessionCount % 4)
+                  ? "bg-gradient-to-r from-pink-400 to-purple-400 shadow-lg scale-110"
+                  : "bg-gray-300/50 dark:bg-gray-600/50"
+              }`}
+              title={`Session ${index + 1}`}
+            />
+          ))}
+        </div>
+
         {/* Circular Progress with Timer */}
-        <div className="relative">
+        <div className="relative flex justify-center">
           <CircularProgress
             progress={progress}
             size={220}

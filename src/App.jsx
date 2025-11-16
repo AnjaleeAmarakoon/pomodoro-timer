@@ -158,23 +158,26 @@ export default function App() {
         Pomodoro Timer
       </h1>
 
-      {/* Circular Progress with Timer */}
-      <div className="relative">
-        <CircularProgress
-          progress={progress}
-          size={220}
-          strokeWidth={14}
-          color={isWorkSession ? "#4ade80" : "#f87171"} // green for work, red for break
-        />
-        <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
-          <TimerDisplay isWorkSession={isWorkSession} timeLeft={timeLeft} />
-          <p className="mt-2 text-sm">
-            {isWorkSession
-              ? `Work Session (${sessionCount % 4 + 1}/4)`
-              : sessionCount % 4 === 0
-              ? "Long Break"
-              : "Break"}
-          </p>
+      {/* Timer Card with Glass Morphism */}
+      <div className="relative bg-white/30 dark:bg-gray-800/30 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/20 dark:border-gray-700/20">
+        {/* Circular Progress with Timer */}
+        <div className="relative">
+          <CircularProgress
+            progress={progress}
+            size={220}
+            strokeWidth={14}
+            color={isWorkSession ? "#4ade80" : "#f87171"} // green for work, red for break
+          />
+          <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
+            <TimerDisplay isWorkSession={isWorkSession} timeLeft={timeLeft} />
+            <p className="mt-2 text-sm font-medium">
+              {isWorkSession
+                ? `Work Session (${sessionCount % 4 + 1}/4)`
+                : sessionCount % 4 === 0
+                ? "Long Break"
+                : "Break"}
+            </p>
+          </div>
         </div>
       </div>
 

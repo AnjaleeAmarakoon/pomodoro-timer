@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import CircularProgress from "./components/CircularProgress";
 import TimerDisplay from "./components/TimerDisplay";
 import Controls from "./components/Controls";
@@ -27,7 +27,11 @@ export default function App() {
 
   // Dark mode
   const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("darkMode") === "true" || false
+    () => {
+      const stored = localStorage.getItem("darkMode");
+      if (stored === null) return true; // Default to dark if not set
+      return stored === "true";
+    }
   );
 
   // Sound
@@ -64,7 +68,7 @@ export default function App() {
   }, [workMinutes, breakMinutes, longBreakMinutes, isWorkSession, sessionCount]);
 
   // Timer tick
-  const toggleTimer = () => {
+  const toggleTimer = useCallback(() => {
     if (isRunning) {
       clearInterval(timerRef.current);
     } else {
@@ -73,9 +77,7 @@ export default function App() {
           if (prev <= 0) {
             if (soundOn) beepSound.current.play();
             clearInterval(timerRef.current);
-
             if (isWorkSession) setSessionCount((prev) => prev + 1);
-
             setIsWorkSession(!isWorkSession);
             return !isWorkSession
               ? workMinutes * 60
@@ -87,10 +89,10 @@ export default function App() {
         });
       }, 1000);
     }
-    setIsRunning(!isRunning);
-  };
+    setIsRunning((prev) => !prev);
+  }, [isRunning, soundOn, isWorkSession, workMinutes, breakMinutes, longBreakMinutes, sessionCount]);
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     clearInterval(timerRef.current);
     setIsRunning(false);
     setTimeLeft(
@@ -100,7 +102,7 @@ export default function App() {
         ? longBreakMinutes * 60
         : breakMinutes * 60
     );
-  };
+  }, [isWorkSession, workMinutes, breakMinutes, longBreakMinutes, sessionCount]);
 
   // Progress calculation
   const progress =
@@ -125,17 +127,18 @@ export default function App() {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [isRunning, isWorkSession, timeLeft]);
+  }, [isRunning, isWorkSession, timeLeft, toggleTimer, resetTimer]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white relative transition-colors duration-300">
+  <div className="min-h-screen flex flex-col items-center justify-center cute-bg dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white relative transition-colors duration-300 px-4 py-8">
       
       {/* Top-Right Button Container */}
-      <div className="absolute top-4 right-4 flex flex-col gap-4">
+      <div className="absolute top-4 right-4 flex flex-col gap-3 z-20">
         {/* Dark Mode Toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="p-3 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-600"
+          aria-label="Toggle theme"
+          className="p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg hover:bg-yellow-100 dark:hover:bg-gray-700 text-gray-700 dark:text-yellow-300 border border-gray-200/50 dark:border-gray-700/50"
         >
           {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
         </button>
@@ -143,31 +146,53 @@ export default function App() {
         {/* Sound Toggle */}
         <button
           onClick={() => setSoundOn(!soundOn)}
-          className="p-3 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-600"
+          aria-label="Toggle sound"
+          className="p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg hover:bg-purple-100 dark:hover:bg-gray-700 text-gray-700 dark:text-purple-300 border border-gray-200/50 dark:border-gray-700/50"
         >
           {soundOn ? <FaVolumeUp size={20} /> : <FaVolumeMute size={20} />}
         </button>
       </div>
 
-      <h1 className="text-3xl font-bold mb-6">Pomodoro Timer</h1>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 sm:mb-8 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg flex items-center justify-center gap-2 sm:gap-3 header-attractive text-center">
+        <span role="img" aria-label="hourglass">⏳</span>
+        <span>Pomodoro Timer</span>
+      </h1>
 
-      {/* Circular Progress with Timer */}
-      <div className="relative">
-        <CircularProgress
-          progress={progress}
-          size={220}
-          strokeWidth={14}
-          color={isWorkSession ? "#4ade80" : "#f87171"} // green for work, red for break
-        />
-        <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
-          <TimerDisplay isWorkSession={isWorkSession} timeLeft={timeLeft} />
-          <p className="mt-2 text-sm">
-            {isWorkSession
-              ? `Work Session (${sessionCount % 4 + 1}/4)`
-              : sessionCount % 4 === 0
-              ? "Long Break"
-              : "Break"}
-          </p>
+      {/* Timer Card with Glass Morphism */}
+      <div className="relative bg-white/30 dark:bg-gray-800/30 backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-md w-full">
+        {/* Session Progress Dots */}
+        <div className="flex justify-center gap-2 mb-6">
+          {[0, 1, 2, 3].map((index) => (
+            <div
+              key={index}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index < (sessionCount % 4)
+                  ? "bg-gradient-to-r from-pink-400 to-purple-400 shadow-lg scale-110"
+                  : "bg-gray-300/50 dark:bg-gray-600/50"
+              }`}
+              title={`Session ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Circular Progress with Timer */}
+        <div className="relative flex justify-center">
+          <CircularProgress
+            progress={progress}
+            size={220}
+            strokeWidth={14}
+            color={isWorkSession ? "#4ade80" : "#f87171"} // green for work, red for break
+          />
+          <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
+            <TimerDisplay isWorkSession={isWorkSession} timeLeft={timeLeft} />
+            <p className="mt-3 text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 tracking-wide">
+              {isWorkSession
+                ? `Session ${sessionCount % 4 + 1} of 4`
+                : sessionCount % 4 === 0
+                ? "🎉 Long Break"
+                : "✨ Short Break"}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -182,8 +207,10 @@ export default function App() {
       <Settings
         workMinutes={workMinutes}
         breakMinutes={breakMinutes}
+        longBreakMinutes={longBreakMinutes}
         setWorkMinutes={setWorkMinutes}
         setBreakMinutes={setBreakMinutes}
+        setLongBreakMinutes={setLongBreakMinutes}
       />
     </div>
   );

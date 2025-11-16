@@ -130,10 +130,10 @@ export default function App() {
   }, [isRunning, isWorkSession, timeLeft, toggleTimer, resetTimer]);
 
   return (
-  <div className="min-h-screen flex flex-col items-center justify-center cute-bg dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white relative transition-colors duration-300">
+  <div className="min-h-screen flex flex-col items-center justify-center cute-bg dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white relative transition-colors duration-300 px-4 py-8">
       
       {/* Top-Right Button Container */}
-      <div className="absolute top-4 right-4 flex flex-col gap-3">
+      <div className="absolute top-4 right-4 flex flex-col gap-3 z-20">
         {/* Dark Mode Toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
@@ -153,13 +153,13 @@ export default function App() {
         </button>
       </div>
 
-      <h1 className="text-5xl font-extrabold mb-8 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg flex items-center gap-3 header-attractive">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 sm:mb-8 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg flex items-center justify-center gap-2 sm:gap-3 header-attractive text-center">
         <span role="img" aria-label="hourglass">⏳</span>
-        Pomodoro Timer
+        <span>Pomodoro Timer</span>
       </h1>
 
       {/* Timer Card with Glass Morphism */}
-      <div className="relative bg-white/30 dark:bg-gray-800/30 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/20 dark:border-gray-700/20">
+      <div className="relative bg-white/30 dark:bg-gray-800/30 backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-md w-full">
         {/* Circular Progress with Timer */}
         <div className="relative">
           <CircularProgress

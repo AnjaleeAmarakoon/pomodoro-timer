@@ -133,11 +133,12 @@ export default function App() {
   <div className="min-h-screen flex flex-col items-center justify-center cute-bg dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white relative transition-colors duration-300">
       
       {/* Top-Right Button Container */}
-      <div className="absolute top-4 right-4 flex flex-col gap-4">
+      <div className="absolute top-4 right-4 flex flex-col gap-3">
         {/* Dark Mode Toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="p-3 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-600"
+          aria-label="Toggle theme"
+          className="p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg hover:bg-yellow-100 dark:hover:bg-gray-700 text-gray-700 dark:text-yellow-300 border border-gray-200/50 dark:border-gray-700/50"
         >
           {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
         </button>
@@ -145,7 +146,8 @@ export default function App() {
         {/* Sound Toggle */}
         <button
           onClick={() => setSoundOn(!soundOn)}
-          className="p-3 bg-gray-300 dark:bg-gray-700 rounded-full transition-colors duration-200 hover:bg-gray-400 dark:hover:bg-gray-600"
+          aria-label="Toggle sound"
+          className="p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg hover:bg-purple-100 dark:hover:bg-gray-700 text-gray-700 dark:text-purple-300 border border-gray-200/50 dark:border-gray-700/50"
         >
           {soundOn ? <FaVolumeUp size={20} /> : <FaVolumeMute size={20} />}
         </button>

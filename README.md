@@ -40,11 +40,11 @@ A beautifully designed Pomodoro Timer application built with React, Vite, and Ta
 
 ## 📸 Screenshots
 
-### Light Mode
-![Pomodoro Timer - Light Mode](src/assets/screenshot%20LightMode.jpeg)
-
 ### Dark Mode
 ![Pomodoro Timer - Dark Mode](src/assets/Screenshot%20DarkMode.jpeg)
+
+### Light Mode
+![Pomodoro Timer - Light Mode](src/assets/screenshot%20LightMode.jpeg)
 
 ---
 
